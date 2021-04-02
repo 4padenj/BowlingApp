@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IndexViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Bowling League</h1>
+    <p>Classy Bowlers, Classy Bowling.</p>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <div class="border-dark bg-light">
+            <h4>Filter By Team!</h4>
+            <p><a class="btn @(Model.Team == null ? "btn-outline-info" : "btn-info") " asp-action="Index" asp-controller="Home" asp-route-teamid="" asp-route-teamname="" asp-route-pagenum="1">All Teams</a></p>
+            @foreach (Team t in Model.Teams)
+            {
+                // This a tag also passes asp-routes to the routing
+                <p>
+                    <a class="btn @(t.TeamName == Model.Team ? "btn-outline-info" : "btn-info") " asp-action="Index" asp-controller="Home" asp-route-teamid="@t.TeamId"
+                       asp-route-teamname="@t.TeamName">@t.TeamName</a>
+                </p>
+            }
+        </div>
+    </div>
+    <div class="col-9">
+        <h3>Team: @Model.Team</h3>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Zip</th>
+                    <th scope="col">Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Bowler b in Model.Bowlers)
+                {
+                    <tr>
+                        <th scope="row">@b.BowlerId</th>
+                        <td>@b.BowlerFirstName @b.BowlerMiddleInit @b.BowlerLastName</td>
+                        <td>@b.BowlerAddress</td>
+                        <td>@b.BowlerCity</td>
+                        <td>@b.BowlerState</td>
+                        <td>@b.BowlerZip</td>
+                        <td>@b.BowlerPhoneNumber</td>
+
+                        <td></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        @* This tag is built using the PagingTagHelper. page-info passes that data *@
+        <div class="" page-info="@Model.PagingInfo" page-url-teamname="@Model.Team">
+
+        </div>
+    </div>
+</div>

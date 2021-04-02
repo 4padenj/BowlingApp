@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Team>
+    <div class="border-dark bg-light">
+        <h4>Filter By Team!</h4>
+        <p><a asp-action="Index" asp-controller="Home" asp-route-teamid="" >All Teams</a></p>
+        @foreach (Team t in Model)
+        {
+            // This a tag also passes asp-routes to the routing
+            <p><a asp-action="Index" asp-controller="Home" asp-route-teamid="@t.TeamId" 
+                  asp-route-teamname="@t.TeamName">@t.TeamName</a></p>
+        }
+    </div>
